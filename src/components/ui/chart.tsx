@@ -102,10 +102,14 @@ const ChartTooltipContent = React.forwardRef<
       nameKey?: string;
       labelKey?: string;
       active?: boolean;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       payload?: any[];
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       label?: any;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       labelFormatter?: (label: any, payload: any[]) => React.ReactNode;
       labelClassName?: string;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       formatter?: any;
       color?: string;
     }
