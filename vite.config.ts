@@ -1,12 +1,10 @@
 import path from 'path';
-import { defineConfig, type UserConfig } from 'vite';
-import type { InlineConfig } from 'vitest';
+import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 
-type ViteConfig = UserConfig & { test: InlineConfig };
-
-const config: ViteConfig = {
-  plugins: [react()],
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -18,6 +16,4 @@ const config: ViteConfig = {
     setupFiles: './src/test/setup.ts',
     exclude: ['e2e/**', 'node_modules/**'],
   },
-};
-
-export default defineConfig(config);
+});
