@@ -102,5 +102,9 @@
     "*.{json,md,yml,yaml}": [
       "prettier --write"
     ]
+  },
+  "overrides": {
+    "react": "$react",
+    "react-dom": "$react-dom"
   }
 }
