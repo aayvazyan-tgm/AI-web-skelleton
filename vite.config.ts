@@ -1,4 +1,3 @@
-
 import path from 'path';
 import { defineConfig, type UserConfig } from 'vite';
 import type { InlineConfig } from 'vitest';
