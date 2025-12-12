@@ -1,99 +1,25 @@
-const tseslint = require('@typescript-eslint/eslint-plugin');
-const tsparser = require('@typescript-eslint/parser');
-const importPlugin = require('eslint-plugin-import');
-const prettierPlugin = require('eslint-plugin-prettier');
-const prettierConfig = require('eslint-config-prettier');
+import js from '@eslint/js';
+import globals from 'globals';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import tseslint from 'typescript-eslint';
 
-module.exports = [
+export default tseslint.config(
+  { ignores: ['dist'] },
   {
-    ignores: [
-      'node_modules/',
-      'dist/',
-      'build/',
-      'webpack.*.js',
-      'webpack.config.js',
-      'coverage/',
-      '.nyc_output/',
-      '*.md',
-      '*.log',
-      '**/__tests__/**',
-      '**/*.test.ts',
-      '**/*.spec.ts',
-      'src/test-setup.ts',
-      'e2e/**',
-      'playwright-report/',
-      'test-results/',
-    ],
-  },
-  {
-    files: ['src/**/*.ts'],
+    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    files: ['**/*.{ts,tsx}'],
     languageOptions: {
-      parser: tsparser,
-      parserOptions: {
-        ecmaVersion: 2021,
-        sourceType: 'module',
-        project: './tsconfig.json',
-      },
-      globals: {
-        chrome: 'readonly',
-        browser: true,
-        es2021: true,
-      },
+      ecmaVersion: 2020,
+      globals: globals.browser,
     },
     plugins: {
-      '@typescript-eslint': tseslint,
-      import: importPlugin,
-      prettier: prettierPlugin,
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
     },
     rules: {
-      ...tseslint.configs.recommended.rules,
-      ...tseslint.configs['recommended-requiring-type-checking'].rules,
-      ...prettierConfig.rules,
-      '@typescript-eslint/explicit-function-return-type': 'off',
-      '@typescript-eslint/explicit-module-boundary-types': 'off',
-      '@typescript-eslint/no-explicit-any': 'error',
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        {
-          argsIgnorePattern: '^_',
-          varsIgnorePattern: '^_',
-        },
-      ],
-      '@typescript-eslint/no-floating-promises': 'error',
-      '@typescript-eslint/no-misused-promises': 'error',
-      'no-console': [
-        'warn',
-        {
-          allow: ['warn', 'error'],
-        },
-      ],
-      'import/order': [
-        'error',
-        {
-          groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
-          'newlines-between': 'always',
-          alphabetize: {
-            order: 'asc',
-            caseInsensitive: true,
-          },
-        },
-      ],
-      'import/no-unresolved': 'error',
-      'import/no-cycle': 'error',
-      'prettier/prettier': [
-        'error',
-        {
-          endOfLine: 'auto',
-        },
-      ],
-    },
-    settings: {
-      'import/resolver': {
-        typescript: {
-          alwaysTryTypes: true,
-          project: './tsconfig.json',
-        },
-      },
+      ...reactHooks.configs.recommended.rules,
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     },
   },
-];
+);
